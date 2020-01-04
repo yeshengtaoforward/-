@@ -1,0 +1,32 @@
+#include<iostream>
+using namespace std;
+int w[100];
+int v[100];
+int maxValue;
+int n,weight;    
+void dfs(int sum,int nowWeight,int step)
+{
+	if(nowWeight>weight) //超出重量 则回退 
+	return ;
+	if(step==n) { //已经完成n件物品的选择 
+		if(sum>maxValue)	
+		maxValue=sum;	// 更新最大价值 
+		return ;
+	}
+	dfs(sum+v[step],nowWeight+w[step],step+1);  //选这件物品
+	dfs(sum,nowWeight,step+1);					//不选这件物品 
+}
+ 
+int main(void)
+{
+	cout<<"input n: ";cin>>n;
+	cout<<"input w: ";cin>>weight;
+	for(int i=0;i<n;i++)
+	{
+		cout<<"input w"<<i+1<<" ,p"<<i+1<<"  ";
+		cin>>w[i];cin>>v[i];
+	}
+	dfs(0,0,0);
+	cout<<"output maxValue:"<<maxValue<<endl;
+	return 0;
+}
